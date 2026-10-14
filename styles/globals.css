@@ -1,0 +1,262 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@import './vars.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-app-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-brand-gray dark:text-white overflow-y-hidden!;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold;
+  }
+
+  label {
+    @apply cursor-pointer block;
+  }
+
+  button {
+    @apply cursor-pointer disabled:cursor-not-allowed focus:outline-none focus:ring-0;
+  }
+
+  input,
+  textarea {
+    @apply outline-none focus:border-brand-gray-300 relative disabled:cursor-not-allowed text-app-text placeholder:text-placeholder placeholder-shown:text-red-700!;
+  }
+}
+
+@layer components {
+  .info-text-container {
+    @apply font-medium [&>p:first-of-type]:text-a-12 [&>p:first-of-type]:mb-2 [&>p:last-of-type]:text-a-18;
+  }
+
+  .dashboard-section-card {
+    @apply w-full bg-background  rounded-2xl border border-app-border;
+  }
+
+  .blurred-bg {
+    @apply backdrop-blur-sm bg-background/10;
+  }
+
+  .page-heading-container {
+    @apply flex bg-background justify-between items-center flex-wrap gap-5 px-8 py-6;
+  }
+
+  .display-xs {
+    @apply text-a-18 leading-7 tracking-[-0.5px];
+  }
+  .display-2xs {
+    @apply text-a-24 leading-8 tracking-[-1px];
+  }
+  .display-sm {
+    @apply text-a-30 leading-9.5 tracking-[-1px];
+  }
+  .display-2sm {
+    @apply text-a-32 leading-10 tracking-[-1px];
+  }
+  .display-md {
+    @apply text-[36px] leading-11 tracking-[-2px];
+  }
+  .display-2md {
+    @apply text-a-32 lg:text-[48px] leading-14.5 tracking-[-2px];
+  }
+  .display-lg {
+    @apply text-[56px] leading-17 tracking-[-2px];
+  }
+  .display-xl {
+    @apply text-[64px] leading-19 tracking-[-2px];
+  }
+  .display-2xl {
+    @apply text-[80px] leading-24 tracking-[-2px];
+  }
+  .display3xl {
+    @apply text-[104px] leading-31 tracking-[-2px];
+  }
+
+  .regular-3xl {
+    @apply text-a-28 leading-10;
+  }
+  .regular-2xl {
+    @apply text-a-24 leading-8;
+  }
+  .regular-xl {
+    @apply text-a-18 leading-7;
+  }
+
+  .regular-lg {
+    @apply text-a-16 leading-6;
+  }
+
+  .regular-md {
+    @apply text-a-14 leading-5;
+  }
+
+  .regular-sm {
+    @apply text-a-12 leading-a-18;
+  }
+
+  .regular-xs {
+    @apply text-a-10 leading-4;
+  }
+
+  .regular-xxs {
+    @apply text-a-8 leading-3;
+  }
+
+  .form {
+    @apply flex flex-col gap-y-3;
+  }
+
+  .form-group {
+    @apply flex flex-wrap gap-3 *:flex-1 xs:*:min-w-55 xs:*:basis-[calc(50%-0.375rem)];
+  }
+
+  .form-btn {
+    @apply w-full mt-14;
+  }
+
+  .grid-group {
+    @apply grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4;
+  }
+
+  .option-menu {
+    @apply min-w-37.5 border bg-background border-app-border rounded-lg *:not-last:border-b transition-colors ease-in-out *:flex *:w-full *:gap-2 *:items-center *:p-3 *:hover:bg-active-link [&_svg]:h-5 [&_svg]:w-5;
+  }
+
+  .form-field {
+    @apply relative flex gap-2 items-center w-full rounded-t-lg p-2 pb-1 before:content-[''] before:absolute before:left-0 before:right-0 before:bottom-2 before:h-px min-h-9.5;
+  }
+
+  .form-field-readonly {
+    @apply before:bg-app-border bg-brand-gray-800 text-placeholder cursor-not-allowed;
+  }
+
+  .form-field-active {
+    @apply before:bg-main-title-2 bg-transparent text-main-title-2;
+  }
+
+  .form-label {
+    @apply text-a-12 leading-a-18 font-medium text-placeholder;
+  }
+
+  .form-input {
+    @apply outline-none bg-transparent w-full py-2 min-h-6 border-none placeholder:text-placeholder;
+  }
+
+  .form-input-readonly {
+    @apply cursor-not-allowed text-placeholder;
+  }
+
+  .form-input-active {
+    @apply text-main-title-2;
+  }
+}
+
+@layer utilities {
+  .dashboard-card {
+    @apply bg-background p-10 rounded-3xl border border-app-border;
+  }
+}
+@utility btn {
+  @apply inline-flex items-center justify-center whitespace-nowrap text-sm font-medium
+    ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2
+    gap-2 disabled:cursor-not-allowed disabled:opacity-50
+    rounded-full h-10 px-4 py-2;
+}
+
+@utility btn-default {
+  @apply btn bg-primary-990 text-white hover:bg-primary dark:bg-primary dark:hover:bg-primary-700;
+}
+
+@utility btn-white {
+  @apply border border-app-border bg-background;
+}
+
+@utility btn-primary {
+  @apply bg-primary text-white;
+}
+
+@utility btn-warning {
+  @apply bg-brand-error-50 text-brand-error-500 hover:bg-brand-error-50/90;
+}
+
+@utility btn-primary-ii {
+  @apply rounded-full bg-primary-100 text-primary hover:border-primary disabled:pointer-events-auto disabled:border-none disabled:bg-secondary-100 disabled:cursor-not-allowed disabled:text-brand-gray;
+}
+
+@utility btn-primary-iii {
+  @apply rounded-full bg-primary-700 text-white hover:border-primary-700 dark:bg-primary disabled:pointer-events-auto disabled:border-none disabled:bg-primary-700 disabled:cursor-not-allowed disabled:text-brand-gray;
+}
+
+@utility btn-destructive {
+  @apply bg-brand-error-500 text-slate-50 hover:bg-brand-error-500/90;
+}
+
+@utility btn-outline {
+  @apply btn border bg-transparent text-app-text hover:bg-app-text/25;
+}
+
+@utility btn-secondary {
+  @apply bg-secondary text-white hover:bg-secondary/80;
+}
+
+@utility btn-ghost {
+  @apply hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-primary-900;
+}
+
+@utility btn-transparent {
+  @apply bg-transparent;
+}
+
+@utility btn-link {
+  @apply text-slate-900 underline-offset-4 hover:underline;
+}
+
+@utility btn-dark {
+  @apply bg-primary-990 text-white;
+}
+
+@utility btn-icon {
+  @apply flex items-center justify-center rounded-full border-[1.5px] border-brand-gray-300 bg-brand-gray-100 cursor-pointer dark:bg-primary-999;
+}
+
+/* Sizes */
+
+@utility btn-size-default {
+  @apply h-10 px-4 py-2;
+}
+
+@utility btn-size-sm {
+  @apply h-9 rounded-md px-3;
+}
+
+@utility btn-size-lg {
+  @apply h-11 rounded-md px-8;
+}
+
+@utility btn-size-icon {
+  @apply h-10 w-10;
+}
+
+@utility btn-size-xl {
+  @apply h-10 w-full max-w-a-250;
+}
+
+@utility btn-size-2xl {
+  @apply h-15 w-15;
+}
+
+@utility btn-size-icon-sm {
+  @apply h-8 min-h-8 min-w-8 w-8;
+}
