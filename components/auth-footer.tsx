@@ -8,7 +8,7 @@ interface AuthFooterProps {
 
 const AuthFooter = ({ text, linkText, href }: AuthFooterProps) => {
   return (
-    <div className="mt-4 border-t-2 border-dashed border-brand-gray-800 pt-4.5">
+    <div className="mt-4 border-t-2 border-dashed border-brand-gray-800 pt-a-18">
       <p className="flex flex-wrap justify-center gap-x-2 text-a-14 text-sub-title-2">
         {text}
         <Link href={href} className="font-medium text-primary hover:underline">

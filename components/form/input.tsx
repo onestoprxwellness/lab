@@ -10,11 +10,11 @@ import InputFooterText from '../input-footer-text';
 const typeClasses = {
   boxed: {
     wrapperCl: '',
-    labelCl: 'mb-1.5 block text-a-14 text-sub-title',
+    labelCl: 'mb-1.5 block text-a-14 text-sub-title-2',
     fieldCl:
       'flex h-11 w-full items-center gap-2 rounded-xl border border-app-border-3 bg-background px-3 text-a-14',
     inputCl:
-      'min-h-6 w-full border-none bg-transparent py-2 text-a-16 text-main-title-2 outline-none placeholder:text-placeholder sm:text-a-14',
+      'min-h-6 w-full border-none bg-transparent py-2 text-main-title-2 outline-none placeholder:text-placeholder',
     errorCl: 'border-brand-error-500',
   },
   default: {
@@ -27,7 +27,15 @@ const typeClasses = {
   },
 } as const;
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+const sizeClasses = {
+  md: { fieldCl: '', inputCl: 'text-a-16 sm:text-a-14' },
+  lg: { fieldCl: 'shadow-xs', inputCl: 'text-a-16' },
+} as const;
+
+interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'size'
+> {
   name: string;
   label?: string;
   labelAction?: ReactNode;
@@ -35,7 +43,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   validation?: RegisterOptions;
   footerText?: string;
   readOnly?: boolean;
+  isRequired?: boolean;
   styleType?: keyof typeof typeClasses;
+  size?: keyof typeof sizeClasses;
 }
 
 const Input = ({
@@ -46,7 +56,9 @@ const Input = ({
   footerText,
   icon,
   readOnly = false,
+  isRequired = false,
   styleType = 'default',
+  size = 'md',
   ...props
 }: InputProps) => {
   const {
@@ -65,13 +77,16 @@ const Input = ({
         <div className="flex items-center justify-between gap-3">
           <label htmlFor={name} className={labelCl}>
             {label}
+            <Show when={isRequired}>
+              <span className="text-brand-error-700"> *</span>
+            </Show>
           </label>
 
           {labelAction}
         </div>
       </Show>
 
-      <div className={cn(fieldCl, error && errorCl)}>
+      <div className={cn(fieldCl, sizeClasses[size].fieldCl, error && errorCl)}>
         <Show when={!!icon}>
           <SvgIcon
             name={icon as IconName}
@@ -84,7 +99,7 @@ const Input = ({
           {...props}
           id={name}
           readOnly={readOnly}
-          className={inputCl}
+          className={cn(inputCl, sizeClasses[size].inputCl)}
         />
       </div>
 

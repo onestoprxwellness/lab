@@ -10,7 +10,7 @@ import InputFooterText from '../input-footer-text';
 const typeClasses = {
   boxed: {
     wrapperCl: '',
-    labelCl: 'mb-1.5 block text-a-14 text-sub-title',
+    labelCl: 'mb-1.5 block text-a-14 text-sub-title-2',
     fieldCl:
       'flex h-11 w-full items-center gap-2 rounded-xl border border-app-border-3 bg-background px-3 text-a-14',
     errorCl: 'border-brand-error-500',
