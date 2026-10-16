@@ -23,7 +23,7 @@ export interface SignInResponse {
 }
 
 export interface SignIn {
-  email: string;
+  username: string;
   password: string;
 }
 
