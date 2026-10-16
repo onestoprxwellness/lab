@@ -31,6 +31,10 @@ const isAuthRoute = (pathname: string) =>
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
+  if (pathname.startsWith(`${routes.onboarding()}/`)) {
+    return NextResponse.next();
+  }
+
   const token = request.cookies.get('access_token')?.value;
   const isAuthed = token ? isTokenValid(token) : false;
 

@@ -6,6 +6,7 @@ import AuthFooter from '@/components/auth-footer';
 import { Button } from '@/components/button';
 import Input from '@/components/form/input';
 import PasswordInput from '@/components/form/password-input';
+import { onboardingSteps } from '@/lib/onboarding-steps';
 import { routes } from '@/lib/routes';
 import { EMAIL_REGEX } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
@@ -33,8 +34,8 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<SignUpInput> = async () => {
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    toast.success('Your account has been created, please sign in');
-    router.replace(routes.signIn());
+    toast.success('Your account has been created');
+    router.push(routes.onboarding(onboardingSteps[0].slug));
   };
 
   return (
