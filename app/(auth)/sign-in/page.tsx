@@ -7,7 +7,7 @@ const SignInPage = () => {
     <>
       <AuthHeading
         title="Welcome!"
-        description="Sign in to your influencer portal"
+        description="Sign in to your laboratory portal"
       />
 
       <SignInForm />
