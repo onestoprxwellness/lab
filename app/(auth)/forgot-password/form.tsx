@@ -1,16 +1,16 @@
 'use client';
-import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import AuthFooter from '@/components/auth-footer';
 import { Button } from '@/components/button';
 import Input from '@/components/form/input';
-
 import { routes } from '@/lib/routes';
-import Link from 'next/link';
+import { EMAIL_REGEX } from '@/utils/constants';
 import { useRouter } from 'next/navigation';
+import { requestPasswordReset } from './action';
 
-interface ForgotPassword {
+interface ForgotPasswordInput {
   email: string;
 }
 
@@ -19,58 +19,61 @@ interface ForgotPasswordFormProps {
 }
 
 const ForgotPasswordForm = ({ email }: ForgotPasswordFormProps) => {
-  const [isPending, setIsPending] = useState(false);
-
   const router = useRouter();
 
-  const form = useForm<ForgotPassword>({ defaultValues: { email } });
+  const form = useForm<ForgotPasswordInput>({ defaultValues: { email } });
 
   const {
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<ForgotPassword> = async (data) => {
-    setIsPending(true);
+  const onSubmit: SubmitHandler<ForgotPasswordInput> = async (data) => {
+    const res = await requestPasswordReset(data.email);
 
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    toast.success(`We've sent a reset token to ${data.email}`);
-    setIsPending(false);
-    router.push(
-      `${routes.resetPassword()}?email=${encodeURIComponent(data.email)}`
-    );
+    if (res.success) {
+      toast.success(res.message);
+      router.push(routes.resetPassword());
+    } else {
+      toast.error(res.message);
+    }
   };
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <Input
+          styleType="boxed"
           name="email"
           label="Email"
           icon="sms"
           type="email"
-          placeholder="Enter your email"
+          autoComplete="email"
+          placeholder="youremail@gmail.com"
           validation={{
             required: 'Please enter your email',
             pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              value: EMAIL_REGEX,
               message: 'Please enter a valid email',
             },
           }}
         />
 
-        <Button disabled={!isValid} loading={isPending} className="mt-10 h-12!">
-          Send Reset Token
+        <Button
+          variant="dark"
+          loading={isSubmitting}
+          disabled={!isValid}
+          className="mt-2 h-10.5 w-full"
+        >
+          Send reset token
         </Button>
-
-        <p className="w-max mx-auto mt-4">
-          Remembered your password?{' '}
-          <Link href={routes.signIn()} className="text-primary">
-            Sign in
-          </Link>
-        </p>
       </form>
+
+      <AuthFooter
+        text="Remembered your password?"
+        linkText="Login"
+        href={routes.signIn()}
+      />
     </FormProvider>
   );
 };

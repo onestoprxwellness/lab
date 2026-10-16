@@ -1,92 +1,87 @@
 'use client';
-import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import AuthFooter from '@/components/auth-footer';
 import { Button } from '@/components/button';
 import Input from '@/components/form/input';
-import SvgIcon from '@/components/svg-icon';
-
 import PasswordInput from '@/components/form/password-input';
 import { routes } from '@/lib/routes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { resetPassword } from './action';
 
-interface ResetPasswordFormProps {
-  email: string;
-}
-
-interface ResetPassword {
-  email: string;
+interface ResetPasswordInput {
   token: string;
   newPassword: string;
   confirmPassword: string;
 }
 
-const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
-  const [isPending, setIsPending] = useState(false);
+const defaultValues: ResetPasswordInput = {
+  token: '',
+  newPassword: '',
+  confirmPassword: '',
+};
 
+interface ResetPasswordFormProps {
+  email: string;
+}
+
+const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
   const router = useRouter();
 
-  const form = useForm<ResetPassword>({
+  const form = useForm<ResetPasswordInput>({
     mode: 'onTouched',
-    defaultValues: {
-      email,
-      token: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
+    defaultValues,
   });
 
   const {
-    register,
     handleSubmit,
     getValues,
-    formState: { isValid },
+    formState: { isValid, isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<ResetPassword> = async () => {
-    setIsPending(true);
+  const onSubmit: SubmitHandler<ResetPasswordInput> = async (data) => {
+    const res = await resetPassword({
+      token: data.token,
+      newPassword: data.newPassword,
+    });
 
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    toast.success('Your password has been reset, please sign in');
-    setIsPending(false);
-    router.replace(routes.signIn());
+    if (res.success) {
+      toast.success(res.message);
+      router.replace(routes.signIn());
+    } else {
+      toast.error(res.message);
+    }
   };
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <input type="hidden" {...register('email')} />
-
-        <div className="flex items-center gap-3 rounded-xl border border-foreground bg-foreground px-3.5 py-3 mb-6.5">
-          <span className="grid place-items-center h-9 w-9 shrink-0 rounded-full bg-background text-primary">
-            <SvgIcon name="sms" className="h-5 w-5" />
-          </span>
-
-          <div className="flex-1 min-w-0 space-y-0.5">
-            <p className="text-muted-foreground text-a-12 sm:text-a-14">
-              You are resetting the password for
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <div className="flex items-center gap-3 rounded-xl border border-app-border-3 px-3.5 py-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-a-12 text-sub-title-3">
+              Resetting the password for
             </p>
-            <p className="font-medium text-a-14 text-brand-gray dark:text-white truncate">
+            <p className="truncate text-a-14 font-medium text-main-title-2">
               {email}
             </p>
           </div>
 
           <Link
-            href={`${routes.forgotPassword()}?email=${encodeURIComponent(email)}`}
-            className="flex items-center gap-1 shrink-0 text-primary text-a-12 sm:text-a-14"
+            href={routes.forgotPassword()}
+            className="shrink-0 text-a-14 font-medium text-primary hover:underline"
           >
-            <SvgIcon name="edit-pen" className="h-4 w-4" />
-            Edit
+            Change
           </Link>
         </div>
 
         <Input
+          styleType="boxed"
           name="token"
           label="Token"
-          icon="lock"
+          icon="key"
+          autoComplete="one-time-code"
           placeholder="Enter the token sent to your email"
           validation={{
             required: 'Please enter the token sent to your email',
@@ -94,9 +89,10 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
         />
 
         <PasswordInput
+          styleType="boxed"
           name="newPassword"
-          label="New Password"
-          placeholder="Enter your new password"
+          label="New password"
+          placeholder="Enter new password"
           isNewPassword
           validation={{
             required: 'Please enter your new password',
@@ -108,9 +104,10 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
         />
 
         <PasswordInput
+          styleType="boxed"
           name="confirmPassword"
-          label="Confirm New Password"
-          placeholder="Re-enter your new password"
+          label="Confirm new password"
+          placeholder="Re-enter new password"
           isNewPassword
           validation={{
             required: 'Please confirm your new password',
@@ -119,17 +116,21 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
           }}
         />
 
-        <Button disabled={!isValid} loading={isPending} className="mt-10 h-12!">
-          Reset Password
+        <Button
+          variant="dark"
+          loading={isSubmitting}
+          disabled={!isValid}
+          className="mt-2 h-10.5 w-full"
+        >
+          Reset password
         </Button>
-
-        <p className="w-max mx-auto mt-4">
-          Didn&apos;t get a token?{' '}
-          <Link href={routes.forgotPassword()} className="text-primary">
-            Request again
-          </Link>
-        </p>
       </form>
+
+      <AuthFooter
+        text="Didn’t get a token?"
+        linkText="Request again"
+        href={routes.forgotPassword()}
+      />
     </FormProvider>
   );
 };
