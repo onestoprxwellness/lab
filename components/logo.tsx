@@ -1,8 +1,10 @@
 import Image from 'next/image';
 
-const Logo = () => {
+import { cn } from '@/lib/utils';
+
+const Logo = ({ className }: { className?: string }) => {
   return (
-    <div className="relative w-40 h-10">
+    <div className={cn('relative w-40 h-10', className)}>
       <Image
         src="/assets/logo.svg"
         alt="logo"

@@ -5,12 +5,12 @@ interface AuthHeadingProps {
 
 const AuthHeading = ({ title, description }: AuthHeadingProps) => {
   return (
-    <div className="grid gap-2 mt-10 mb-6 text-center">
-      <h1 className="text-2xl font-bold tracking-[-0.2px]">{title}</h1>
+    <div className="mt-10 mb-8 grid gap-1 text-center">
+      <h1 className="text-a-24 font-semibold tracking-[-0.5px] text-main-title-3">
+        {title}
+      </h1>
 
-      <p className="text-muted-foreground text-a-14 sm:text-base leading-relaxed text-balance">
-        {description}
-      </p>
+      <p className="text-a-14 text-sub-title-3">{description}</p>
     </div>
   );
 };
