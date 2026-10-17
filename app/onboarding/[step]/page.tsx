@@ -8,19 +8,22 @@ import {
 } from '@/lib/onboarding-steps';
 import AccreditationStep from './steps/accreditation';
 import ContactInformationStep from './steps/contact-information';
+import DeclarationStep from './steps/declaration';
 import DocumentsStep from './steps/documents';
 import LaboratoryInformationStep from './steps/laboratory-information';
 import LocationCoverageStep from './steps/location-coverage';
-import PendingStep from './steps/pending-step';
+import PartnershipStep from './steps/partnership';
 import TechnologyStep from './steps/technology';
 
-const stepComponents: Partial<Record<OnboardingStepSlug, ComponentType>> = {
+const stepComponents: Record<OnboardingStepSlug, ComponentType> = {
   'laboratory-information': LaboratoryInformationStep,
   'contact-information': ContactInformationStep,
   'location-coverage': LocationCoverageStep,
   accreditation: AccreditationStep,
   documents: DocumentsStep,
   technology: TechnologyStep,
+  partnership: PartnershipStep,
+  declaration: DeclarationStep,
 };
 
 export const generateStaticParams = () =>
@@ -37,10 +40,9 @@ const OnboardingStepPage = async ({
 
   if (stepIndex === -1) notFound();
 
-  const { slug } = onboardingSteps[stepIndex];
-  const Step = stepComponents[slug];
+  const Step = stepComponents[onboardingSteps[stepIndex].slug];
 
-  return Step ? <Step /> : <PendingStep slug={slug} />;
+  return <Step />;
 };
 
 export default OnboardingStepPage;

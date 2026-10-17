@@ -45,6 +45,18 @@ export interface TechnologyCapability {
   specificDays: { day: string; open: string; close: string }[];
 }
 
+export interface PartnershipInformation {
+  referralSource: string;
+  partnershipReason: string;
+  additionalInformation: string;
+}
+
+export interface Declaration {
+  acceptDataProcessing: boolean;
+  acceptNonCircumvention: boolean;
+  acceptDeclaration: boolean;
+}
+
 export interface ContactInformation {
   fullName: string;
   role: string;
