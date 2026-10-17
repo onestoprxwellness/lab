@@ -286,7 +286,7 @@
 }
 
 @utility btn-dark {
-  @apply bg-primary-990 text-white dark:bg-primary disabled:bg-btn-disabled disabled:opacity-100! dark:disabled:bg-btn-disabled;
+  @apply bg-primary-990 text-white dark:bg-primary disabled:bg-btn-disabled disabled:opacity-100! dark:disabled:bg-btn-disabled dark:disabled:text-white/40;
 }
 
 @utility btn-light {

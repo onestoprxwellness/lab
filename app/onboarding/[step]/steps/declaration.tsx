@@ -86,14 +86,14 @@ const DeclarationStep = () => {
                 </div>
               </div>
 
-              <label className="group relative mt-4 flex cursor-pointer items-center gap-a-10 text-a-14 text-main-title-3">
+              <label className="group relative mt-4 flex cursor-pointer items-start gap-a-10 text-a-14 text-main-title-3">
                 <input
                   {...form.register(name, { required: true })}
                   type="checkbox"
                   className="peer sr-only"
                 />
 
-                <span className="grid size-4 shrink-0 place-items-center rounded-sm border border-app-border bg-background transition-colors peer-checked:border-primary-700 peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">
+                <span className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-sm border border-app-border bg-background transition-colors peer-checked:border-primary-700 peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">
                   <SvgIcon
                     name="mark"
                     className="h-2 w-a-10 text-white opacity-0 group-has-checked:opacity-100"

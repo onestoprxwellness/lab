@@ -23,7 +23,10 @@ const FieldLabel = ({
       >
         {label}
         <Show when={!!isRequired}>
-          <span className="text-brand-error-700"> *</span>
+          <span className="text-brand-error-700 dark:text-brand-error-500">
+            {' '}
+            *
+          </span>
         </Show>
       </label>
 

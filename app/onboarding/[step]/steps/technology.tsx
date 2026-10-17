@@ -123,7 +123,7 @@ const TechnologyStep = () => {
         />
 
         <div className="mt-a-30 flex flex-col gap-a-30">
-          <div className="rounded-xl border border-dashed border-primary/60 bg-primary-200 p-4">
+          <div className="rounded-xl border border-dashed border-primary/60 bg-smooth-blue p-4">
             <p className="text-a-14 font-medium text-main-title-3">
               Laboratory partners will be expected to use the dashboard to:
             </p>

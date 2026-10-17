@@ -40,7 +40,10 @@ const RadioGroup = ({
         <p id={labelId} className="mb-a-14 text-a-14 text-sub-title-2">
           {label}
           <Show when={!!isRequired}>
-            <span className="text-brand-error-700"> *</span>
+            <span className="text-brand-error-700 dark:text-brand-error-500">
+              {' '}
+              *
+            </span>
           </Show>
         </p>
       </Show>
@@ -56,7 +59,7 @@ const RadioGroup = ({
         {options.map((option) => (
           <label
             key={option.value}
-            className="group relative flex min-h-a-22 cursor-pointer items-center gap-a-10 text-a-14 text-main-title-3"
+            className="group relative flex min-h-a-22 cursor-pointer items-start gap-a-10 text-a-14 text-main-title-3"
           >
             <input
               {...register(name, validation)}
@@ -65,7 +68,7 @@ const RadioGroup = ({
               className="peer sr-only"
             />
 
-            <span className="grid size-4 shrink-0 place-items-center rounded-full border border-app-border bg-background transition-colors peer-checked:border-primary-700 peer-checked:bg-primary-200 peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">
+            <span className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border border-app-border bg-background transition-colors peer-checked:border-primary-700 peer-checked:bg-smooth-blue peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">
               <span className="size-a-10 rounded-full transition-colors group-has-checked:bg-primary" />
             </span>
 
