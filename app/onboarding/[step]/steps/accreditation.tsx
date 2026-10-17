@@ -62,7 +62,6 @@ const AccreditationStep = () => {
 
           <Show when={hasAccreditation === 'yes'}>
             <Input
-              styleType="boxed"
               size="lg"
               name="accreditationBody"
               label="Accreditation Body"
@@ -73,7 +72,6 @@ const AccreditationStep = () => {
             />
 
             <Input
-              styleType="boxed"
               size="lg"
               name="accreditationNumber"
               label="Accreditation Number"

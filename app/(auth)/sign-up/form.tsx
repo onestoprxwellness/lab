@@ -42,7 +42,6 @@ const SignUpForm = () => {
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
         <Input
-          styleType="boxed"
           name="email"
           label="Email"
           icon="sms"
@@ -59,7 +58,6 @@ const SignUpForm = () => {
         />
 
         <PasswordInput
-          styleType="boxed"
           name="password"
           label="Password"
           placeholder="Enter password"

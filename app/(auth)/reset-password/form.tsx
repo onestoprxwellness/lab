@@ -77,7 +77,6 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
         </div>
 
         <Input
-          styleType="boxed"
           name="token"
           label="Token"
           icon="key"
@@ -89,7 +88,6 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
         />
 
         <PasswordInput
-          styleType="boxed"
           name="newPassword"
           label="New password"
           placeholder="Enter new password"
@@ -104,7 +102,6 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
         />
 
         <PasswordInput
-          styleType="boxed"
           name="confirmPassword"
           label="Confirm new password"
           placeholder="Re-enter new password"

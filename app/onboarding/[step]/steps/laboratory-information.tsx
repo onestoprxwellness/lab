@@ -61,7 +61,6 @@ const LaboratoryInformationStep = () => {
 
         <div className="mt-a-30 flex flex-col gap-a-30">
           <Input
-            styleType="boxed"
             size="lg"
             name="laboratoryName"
             label="Laboratory Name"
@@ -72,7 +71,6 @@ const LaboratoryInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="registeredName"
             label="Registered Business/Organization Name"
@@ -103,7 +101,6 @@ const LaboratoryInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="corporateRegistrationNumber"
             label="Corporate Registration Number"
@@ -116,7 +113,6 @@ const LaboratoryInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="regulatoryBody"
             label="Regulatory Body"
@@ -127,7 +123,6 @@ const LaboratoryInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="facilityRegistrationNumber"
             label="Facility Registration Number"

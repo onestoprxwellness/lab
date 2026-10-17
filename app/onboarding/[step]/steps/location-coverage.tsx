@@ -131,7 +131,6 @@ const LocationCoverageStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="streetAddress"
             label={`Street Address${branch}`}
@@ -152,7 +151,6 @@ const LocationCoverageStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="postalCode"
             label={`Postal Code (${isMainBranch ? 'Main Branch - ' : ''}Optional)`}

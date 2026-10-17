@@ -7,31 +7,6 @@ import { cn } from '@/lib/utils';
 import { IconName } from '@/types/svg-icon.type';
 import InputFooterText from '../input-footer-text';
 
-const typeClasses = {
-  boxed: {
-    wrapperCl: '',
-    labelCl: 'mb-1.5 block text-a-14 text-sub-title-2',
-    fieldCl:
-      'flex h-11 w-full items-center gap-2 rounded-xl border border-app-border-3 bg-background px-3 text-a-14',
-    inputCl:
-      'min-h-6 w-full border-none bg-transparent py-2 text-main-title-2 outline-none placeholder:text-placeholder',
-    errorCl: 'border-brand-error-500',
-  },
-  default: {
-    wrapperCl: 'mb-4 md:mb-a-26',
-    labelCl: 'regular-sm ml-7 block font-medium text-placeholder',
-    fieldCl: 'flex w-full items-center gap-2 border-b border-app-border pb-1',
-    inputCl:
-      'min-h-6 w-full border-none bg-transparent py-2 text-brand-gray outline-none dark:text-white',
-    errorCl: 'text-brand-error-500',
-  },
-} as const;
-
-const sizeClasses = {
-  md: { fieldCl: '', inputCl: 'text-a-16 sm:text-a-14' },
-  lg: { fieldCl: 'shadow-xs', inputCl: 'text-a-16' },
-} as const;
-
 interface InputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size'
@@ -44,8 +19,7 @@ interface InputProps extends Omit<
   footerText?: string;
   readOnly?: boolean;
   isRequired?: boolean;
-  styleType?: keyof typeof typeClasses;
-  size?: keyof typeof sizeClasses;
+  size?: 'md' | 'lg';
 }
 
 const Input = ({
@@ -57,7 +31,6 @@ const Input = ({
   icon,
   readOnly = false,
   isRequired = false,
-  styleType = 'default',
   size = 'md',
   ...props
 }: InputProps) => {
@@ -68,17 +41,20 @@ const Input = ({
 
   const error = errors[name]?.message as string | undefined;
 
-  const { wrapperCl, labelCl, fieldCl, inputCl, errorCl } =
-    typeClasses[styleType];
-
   return (
-    <div className={wrapperCl}>
+    <div>
       <Show when={!!label || !!labelAction}>
         <div className="flex items-center justify-between gap-3">
-          <label htmlFor={name} className={labelCl}>
+          <label
+            htmlFor={name}
+            className="mb-1.5 block text-a-14 text-sub-title-2"
+          >
             {label}
             <Show when={isRequired}>
-              <span className="text-brand-error-700"> *</span>
+              <span className="text-brand-error-700 dark:text-brand-error-500">
+                {' '}
+                *
+              </span>
             </Show>
           </label>
 
@@ -86,7 +62,13 @@ const Input = ({
         </div>
       </Show>
 
-      <div className={cn(fieldCl, sizeClasses[size].fieldCl, error && errorCl)}>
+      <div
+        className={cn(
+          'flex h-11 w-full items-center gap-2 rounded-xl border bg-background px-3',
+          size === 'lg' && 'shadow-xs',
+          error ? 'border-brand-error-500' : 'border-app-border-3'
+        )}
+      >
         <Show when={!!icon}>
           <SvgIcon
             name={icon as IconName}
@@ -99,7 +81,10 @@ const Input = ({
           {...props}
           id={name}
           readOnly={readOnly}
-          className={cn(inputCl, sizeClasses[size].inputCl)}
+          className={cn(
+            'min-h-6 w-full border-none bg-transparent py-2 text-a-16 text-main-title-2 outline-none placeholder:text-placeholder',
+            size === 'md' && 'sm:text-a-14'
+          )}
         />
       </div>
 

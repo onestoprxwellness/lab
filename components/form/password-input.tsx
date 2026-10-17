@@ -7,22 +7,6 @@ import { cn } from '@/lib/utils';
 import { IconName } from '@/types/svg-icon.type';
 import InputFooterText from '../input-footer-text';
 
-const typeClasses = {
-  boxed: {
-    wrapperCl: '',
-    labelCl: 'mb-1.5 block text-a-14 text-sub-title-2',
-    fieldCl:
-      'flex h-11 w-full items-center gap-2 rounded-xl border border-app-border-3 bg-background px-3 text-a-14',
-    errorCl: 'border-brand-error-500',
-  },
-  default: {
-    wrapperCl: 'mb-4 md:mb-a-26',
-    labelCl: 'regular-sm ml-7 block font-medium text-placeholder',
-    fieldCl: 'flex w-full items-center gap-2 border-b border-app-border pb-1',
-    errorCl: 'text-error-500',
-  },
-} as const;
-
 interface InputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'type'
@@ -34,7 +18,6 @@ interface InputProps extends Omit<
   footerText?: string;
   isNewPassword?: boolean;
   iconName?: IconName;
-  styleType?: keyof typeof typeClasses;
 }
 
 const PasswordInput: FC<InputProps> = ({
@@ -45,7 +28,6 @@ const PasswordInput: FC<InputProps> = ({
   footerText,
   isNewPassword,
   iconName = 'lock-key',
-  styleType = 'default',
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -57,19 +39,25 @@ const PasswordInput: FC<InputProps> = ({
 
   const error = errors[name]?.message as string | undefined;
 
-  const { wrapperCl, labelCl, fieldCl, errorCl } = typeClasses[styleType];
-
   return (
-    <div className={wrapperCl}>
+    <div>
       <div className="flex items-center justify-between gap-3">
-        <label htmlFor={name} className={labelCl}>
+        <label
+          htmlFor={name}
+          className="mb-1.5 block text-a-14 text-sub-title-2"
+        >
           {label}
         </label>
 
         {labelAction}
       </div>
 
-      <div className={cn(fieldCl, error && errorCl)}>
+      <div
+        className={cn(
+          'flex h-11 w-full items-center gap-2 rounded-xl border bg-background px-3',
+          error ? 'border-brand-error-500' : 'border-app-border-3'
+        )}
+      >
         <SvgIcon
           name={iconName}
           className="h-5 w-5 shrink-0 text-sub-title-3"

@@ -43,7 +43,6 @@ const ContactInformationStep = () => {
 
         <div className="mt-a-30 flex flex-col gap-a-30">
           <Input
-            styleType="boxed"
             size="lg"
             name="fullName"
             label="Full Name"
@@ -55,7 +54,6 @@ const ContactInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="role"
             label="Position/Role"
@@ -80,7 +78,6 @@ const ContactInformationStep = () => {
           />
 
           <Input
-            styleType="boxed"
             size="lg"
             name="email"
             type="email"
@@ -100,7 +97,6 @@ const ContactInformationStep = () => {
 
           <div className="grid gap-a-30 sm:grid-cols-[1fr_15rem] sm:gap-3">
             <Input
-              styleType="boxed"
               size="lg"
               name="practicingLicense"
               label="Practicing License"
