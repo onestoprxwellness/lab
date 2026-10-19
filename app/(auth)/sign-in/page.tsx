@@ -1,10 +1,14 @@
-import AuthLayout from '@/components/auth-heading';
+import AuthHeading from '@/components/auth-heading';
+
 import SignInForm from './form';
 
 const SignInPage = () => {
   return (
     <>
-      <AuthLayout title="Welcome!" description="Sign in to your portal." />
+      <AuthHeading
+        title="Welcome!"
+        description="Sign in to your laboratory portal"
+      />
 
       <SignInForm />
     </>

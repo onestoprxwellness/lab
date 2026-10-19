@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'react-day-picker/style.css' layer(components);
 @plugin '@tailwindcss/typography';
 
 @import './vars.css';
@@ -163,6 +164,67 @@
   }
 }
 
+@layer components {
+  .rdp-root {
+    --rdp-accent-color: var(--primary);
+    --rdp-accent-background-color: var(--primary-200);
+    --rdp-today-color: var(--primary);
+    --rdp-day-height: 2.25rem;
+    --rdp-day-width: 2.25rem;
+    --rdp-day_button-height: 2rem;
+    --rdp-day_button-width: 2rem;
+    --rdp-day_button-border: 0;
+    --rdp-selected-border: 0;
+    --rdp-nav-height: 2rem;
+    --rdp-nav_button-height: 2rem;
+    --rdp-nav_button-width: 2rem;
+    --rdp-weekday-opacity: 1;
+    --rdp-weekday-padding: 0 0 0.25rem;
+    --rdp-disabled-opacity: 1;
+  }
+
+  .rdp-root .rdp-month_caption {
+    @apply h-8 text-a-14 font-semibold text-main-title-3;
+  }
+
+  .rdp-root .rdp-chevron {
+    @apply size-4 fill-sub-title-3;
+  }
+
+  .rdp-root .rdp-button_previous,
+  .rdp-root .rdp-button_next {
+    @apply rounded-lg transition-colors hover:bg-foreground;
+  }
+
+  .rdp-root .rdp-weekday {
+    @apply text-a-12 font-medium text-sub-title-3;
+  }
+
+  .rdp-root .rdp-day_button {
+    @apply text-a-14 transition-colors hover:bg-foreground;
+  }
+
+  .rdp-root .rdp-today:not(.rdp-selected) .rdp-day_button {
+    @apply font-semibold text-primary;
+  }
+
+  .rdp-root .rdp-selected {
+    @apply text-a-14 font-medium;
+  }
+
+  .rdp-root .rdp-selected .rdp-day_button {
+    @apply bg-primary text-white hover:bg-primary;
+  }
+
+  .rdp-root .rdp-disabled .rdp-day_button {
+    @apply text-btn-disabled hover:bg-transparent;
+  }
+
+  .boxed-field {
+    @apply flex h-11 w-full items-center gap-2 rounded-xl border bg-background px-3 text-a-16 text-main-title-2 shadow-xs;
+  }
+}
+
 @layer utilities {
   .dashboard-card {
     @apply bg-background p-10 rounded-3xl border border-app-border;
@@ -224,7 +286,11 @@
 }
 
 @utility btn-dark {
-  @apply bg-primary-990 text-white;
+  @apply bg-primary-990 text-white dark:bg-primary disabled:bg-btn-disabled disabled:opacity-100! dark:disabled:bg-btn-disabled dark:disabled:text-white/40;
+}
+
+@utility btn-light {
+  @apply bg-foreground text-main-title-3 hover:bg-fade-stroke disabled:bg-brand-gray-800 disabled:text-btn-disabled disabled:opacity-100!;
 }
 
 @utility btn-icon {

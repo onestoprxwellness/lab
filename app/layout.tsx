@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Onest } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
 
 import OfflineScreen from '@/components/offline';
@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 
 import '../styles/globals.css';
 
-const font = Onest({ subsets: ['latin'] });
+const font = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: { default: 'Onestop RX', template: '%s | Onestop RX' },

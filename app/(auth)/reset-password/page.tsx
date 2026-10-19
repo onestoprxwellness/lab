@@ -1,21 +1,25 @@
-import AuthLayout from '@/components/auth-heading';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+import AuthHeading from '@/components/auth-heading';
+import { routes } from '@/lib/routes';
+import { RESET_EMAIL_COOKIE } from '@/utils/constants';
+
 import ResetPasswordForm from './form';
 
-const ResetPasswordPage = async ({
-  searchParams,
-}: {
-  searchParams: Promise<{ email?: string }>;
-}) => {
-  const { email } = await searchParams;
+const ResetPasswordPage = async () => {
+  const email = (await cookies()).get(RESET_EMAIL_COOKIE)?.value;
+
+  if (!email) redirect(routes.forgotPassword());
 
   return (
     <>
-      <AuthLayout
+      <AuthHeading
         title="Reset Password"
-        description="Enter the token sent to your email along with your new password to reset your password."
+        description="Enter the token sent to your email and choose a new password"
       />
 
-      <ResetPasswordForm email={email ?? ''} />
+      <ResetPasswordForm email={email} />
     </>
   );
 };

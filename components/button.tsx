@@ -23,6 +23,7 @@ const buttonVariants = cva('btn', {
       transparent: 'btn-transparent',
       link: 'btn-link',
       dark: 'btn-dark',
+      light: 'btn-light',
       stale: 'btn-stale',
       icon: 'btn-icon',
     },
